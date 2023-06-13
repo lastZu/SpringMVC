@@ -34,4 +34,14 @@ public class PersonDAO {
         person.setId(++counter);
         this.people.add(person);
     }
+
+    public void update(int id, Person updatePerson) {
+        Person person = this.show(id);
+        person.setName(updatePerson.getName());
+    }
+
+    public void delete(int id) {
+        Person person = this.show(id);
+        this.people.remove(person);
+    }
 }
