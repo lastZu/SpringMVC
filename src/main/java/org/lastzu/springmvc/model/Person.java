@@ -1,9 +1,18 @@
 package org.lastzu.springmvc.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class Person {
+    @Email(message = "It`s not a valid e-mail")
     private String email;
+    @Min(value = 1, message = "Age can`t be less then 1")
     private int age;
     private int id;
+    @NotEmpty(message = "Name can`t be empty")
+    @Size(min = 3, max = 24, message = "Min value - 3, Max value - 24")
     private String name;
 
     public Person(){}
