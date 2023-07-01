@@ -1,5 +1,6 @@
 package org.lastzu.springmvc.controllers;
 
+import jakarta.validation.Valid;
 import org.lastzu.springmvc.dao.PersonDAO;
 import org.lastzu.springmvc.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,10 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") Person person) {
+    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return CATALOG + "/new";
+        }
         personDAO.save(person);
         return "redirect:/people";
     }
@@ -53,7 +57,7 @@ public class PeopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, BindingResult bindingResult,
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors()) {
             return CATALOG + "/update";
